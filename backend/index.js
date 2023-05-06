@@ -3,6 +3,10 @@ const app = express();
 const mongoose = require('mongoose');
 const statRouter = require('./routes/stat-routes');
 const testRouter = require('./routes/test-routes');
+const dotenv = require("dotenv")
+dotenv.config();
+
+const PORT = process.env.PORT || 5000
 
 const cors = require('cors');
 app.use(cors());
@@ -17,7 +21,7 @@ app.use(express.json());
 app.use("/stat", statRouter);
 app.use("/test", testRouter);
 
-mongoose.connect('mongodb+srv://shreyanigam1062:JR6DqJeB50osi2fh@cluster0.j9agpqm.mongodb.net/DBHW?retryWrites=true&w=majority',
+mongoose.connect(`${process.env.DATABASE}`,
 {
   useNewurlParser: true,
   useUnifiedTopology: true
@@ -25,5 +29,5 @@ mongoose.connect('mongodb+srv://shreyanigam1062:JR6DqJeB50osi2fh@cluster0.j9agpq
 ).then(()=>{
   console.warn('Database connected')
 })
-
-app.listen(5000); 
+ 
+app.listen(PORT);  
